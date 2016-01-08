@@ -12,8 +12,31 @@ On some server, call it `localserver` a cron script is used to run `mirror.sh`. 
 
 Installation Steps
 ---
+1. Create a user, `repo-pusher`.  Give `repo-pusher` read access to `privaterepo` and write access to `publicrepo`.
 
-1. on the local server, git clone this repository to somewhere special:
+1. On `localserver` create an ssh-key for `repo-pusher` with no passphrase:
+```
+sudo ssh-keygen -f /root/.ssh/bitbucket_repo-pusher_rsa -C "repo-pusher"
+```
+Add this public key to the `repo-pusher` on bitbucket.
+
+1. On `localserver`, git clone this repository to somewhere special:
 ```
 sudo git clone git@github.com:lukeolson/git-repo-mirror.git /opt/git-repo-mirror
+```
+
+1. On `localserver`, create an initialize a bare directory, adding `privaterepo` and `publicrepo` as remotes.  Then initilize the repo by fetching.
+```
+sudo cd /opt/git-repo-mirror
+sudo mkdir barerepo
+sudo cd barerepo
+sudo git init --bare
+sudo git remote add private git@bitbucket.org:somebody/privaterepo.git
+sudo git remote add public git@bitbucket.org:somebodyelse/publicrepo.git
+sudo git fetch private master:master
+```
+
+1. Now set up the cron job:
+```
+crontab -e
 ```

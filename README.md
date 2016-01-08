@@ -27,16 +27,20 @@ sudo git clone git@github.com:lukeolson/git-repo-mirror.git /opt/git-repo-mirror
 
 1. On `localserver`, create an initialize a bare directory, adding `privaterepo` and `publicrepo` as remotes.  Then initilize the repo by fetching.
 ```
-sudo cd /opt/git-repo-mirror
-sudo mkdir barerepo
-sudo cd barerepo
-sudo git init --bare
-sudo git remote add private git@bitbucket.org:somebody/privaterepo.git
-sudo git remote add public git@bitbucket.org:somebodyelse/publicrepo.git
-sudo git fetch private master:master
+sudo -i
+eval \`ssh-agent\`
+ssh-add ~/.ssh/bitbucket_repo-pusher_rsa
+cd /opt/git-repo-mirror
+mkdir barerepo
+cd barerepo
+git init --bare
+git remote add private git@bitbucket.org:xpacc-dev/plascomcm.git
+git remote add public git@bitbucket.org:xpacc/plascomcm.git
+git fetch private master:master
 ```
 
-1. Now set up the cron job:
+1. Now set up the cron job in `/etc/crontab`:
 ```
-crontab -e
+# *  *  *  *  * user-name command to be executed
+  0  12 *  *  * root /opt/git-repo-mirror/git-repo-mirror.sh
 ```

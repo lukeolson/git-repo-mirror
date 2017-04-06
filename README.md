@@ -22,7 +22,7 @@ Add this public key to the `repo-pusher` on bitbucket.
 
 1. On `localserver`, git clone this repository to somewhere special:
 ```
-sudo git clone git@github.com:lukeolson/git-repo-mirror.git /opt/git-repo-mirror
+sudo git clone https://github.com/lukeolson/git-repo-mirror.git /opt/git-repo-mirror
 ```
 
 1. On `localserver`, create an initialize a bare directory, adding `privaterepo` and `publicrepo` as remotes.  Then initilize the repo by fetching.

@@ -28,7 +28,7 @@ sudo git clone https://github.com/lukeolson/git-repo-mirror.git /opt/git-repo-mi
 1. On `localserver`, create an initialize a bare directory, adding `privaterepo` and `publicrepo` as remotes.  Then initilize the repo by fetching.
 ```
 sudo -i
-eval \`ssh-agent\`
+eval \`ssh-agent\ -s`
 ssh-add ~/.ssh/bitbucket_repo-pusher_rsa
 cd /opt/git-repo-mirror
 mkdir barerepo
